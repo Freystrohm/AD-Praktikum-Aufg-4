@@ -12,13 +12,47 @@ public class Binomialkoeffizient
 	{
 		int[] pascalzahlen = new int[n + 1];
 
-		for (int k = 0; k <= (n)/2; k++)
+		for (int k = 0; k <= (n) / 2; k++)
 		{
-			pascalzahlen[k] = (int)(fakultät(n) / (fakultät(k) * fakultät(n - k)));
+			pascalzahlen[k] = (int) (fakultät(n)
+					/ (fakultät(k) * fakultät(n - k)));
 			pascalzahlen[n - k] = pascalzahlen[k];
 		}
 
 		return pascalzahlen;
+	}
+
+	public static long[] pascalReiheEff(int n)
+	{
+		long[] pascalzahlen = new long[n + 1];
+		pascalzahlen[0] = 1;
+		pascalzahlen[n] = 1;
+
+		for (int k = 1; k <= n/2; k++)
+		{
+			pascalzahlen[k] = 1;
+			for(int i = 1; i <= k  ; i++)
+			{
+				pascalzahlen[k] *= ((double)(n-k+i))/i;
+			}
+			pascalzahlen[n - k] = pascalzahlen[k];
+			//pascalzahlen[k] = binomialkoeff(n, i);
+		}
+		
+		return pascalzahlen;
+	}
+
+	private static int binomialkoeff(int n, int k)
+	{
+		if(k==0)
+		{
+			return 1;
+		}
+		if(2*k > n)
+		{
+			return binomialkoeff(n, n - k);
+		}
+		return(int) ((double)(n+1-k)) * (binomialkoeff(n, k - 1)/k);		
 	}
 
 	private static long fakultät(long n)
@@ -31,13 +65,13 @@ public class Binomialkoeffizient
 
 	public static void main(String[] args)
 	{
-		int[] pascal = pascalReihe(10);
+		long[] pascal = pascalReiheEff(100);
 		for (int i = 0; i < pascal.length; i++)
 		{
 			System.out.println(pascal[i]);
 		}
-		
-		System.out.println("\n\n\n"+ zaehler);
+
+		System.out.println("\n\n\n" + zaehler);
 	}
 
 }
