@@ -34,6 +34,7 @@ public class Binomialkoeffizient
 			for(int i = 1; i <= k  ; i++)
 			{
 				pascalzahlen[k] *= ((double)(n-k+i))/i;
+				zaehler++;
 			}
 			pascalzahlen[n - k] = pascalzahlen[k];
 			//pascalzahlen[k] = binomialkoeff(n, i);
@@ -65,7 +66,7 @@ public class Binomialkoeffizient
 
 	public static void main(String[] args)
 	{
-		long[] pascal = pascalReiheEff(100);
+	long[] pascal = pascalReiheEff(9);
 		for (int i = 0; i < pascal.length; i++)
 		{
 			System.out.println(pascal[i]);
